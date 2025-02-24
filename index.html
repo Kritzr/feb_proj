@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Go out with me??</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        font-family: 'Leckerli One', cursive;
+        font-size: large;
+        background-color: black;
+        overflow: hidden;
+        position: relative;
+      }
+
+      h2 {
+        text-align: center;
+        font-size: 1.5em;
+        color: white;
+        margin: 15px 0;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+      }
+
+      .gif {
+        height: 100%;
+        width: 100%;
+        max-width: 350px;
+        border-radius: 10px;
+      }
+
+      .btn-group {
+        width: 100%;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+      }
+
+      button {
+        position: absolute;
+        width: 150px;
+        height: inherit;
+        font-size: 1.2em;
+        color: white;
+        border-radius: 30px;
+        outline: none;
+        cursor: pointer;
+        box-shadow: 0 2px 4px gray;
+        border: 2px solid #e94d58;
+        transition: all 0.3s ease;
+      }
+
+      button:nth-child(1) {
+        margin-left: -200px;
+        background: #e94d58;
+      }
+
+      button:nth-child(2) {
+        margin-right: -200px;
+        background: white;
+        color: #e94d58;
+      }
+
+      button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      .letsgo-btn {
+        position: absolute;
+        width: 200px;
+        height: 50px;
+        background-color: #ff2a68;
+        color: white;
+        font-size: 1.2em;
+        border-radius: 30px;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .letsgo-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      .popup-alert {
+        position: absolute;
+        width: 300px;
+        height: 150px;
+        background-color: #e94d58;
+        color: white;
+        font-size: 1.5em;
+        border-radius: 20px;
+        padding: 20px;
+        text-align: center;
+        display: none;
+        transform: translateY(50px);
+        animation: popupAnimation 1s ease-out forwards;
+      }
+
+      @keyframes popupAnimation {
+        0% {
+          opacity: 0;
+          transform: translateY(50px);
+        }
+        50% {
+          opacity: 1;
+          transform: translateY(-10px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Leckerli+One&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="wrapper">
+      <h2 class="question">Will you go out with me? ~ kika</h2>
+      <img
+        class="gif"
+        alt="gif"
+        src="https://media.giphy.com/media/FTGah7Mx3ss04PcasF/giphy.gif"
+      />
+      <div class="btn-group">
+        <button class="yes-btn">Yes</button>
+        <button class="no-btn">No</button>
+      </div>
+    </div>
+
+    <!-- Popup Alert with new message -->
+    <div class="popup-alert" id="popupAlert">
+      <p> get ready to experience the kika time ;) letssgoooo <<3 </p>
+    </div>
+
+    <script>
+      const qs = (selector) => document.querySelector(selector);
+      const question = qs(".question");
+      const gif = qs(".gif");
+      const [yesBtn, noBtn] = [".yes-btn", ".no-btn"].map(qs);
+
+      const noButtonMessages = [
+        "Bruh!",
+        "Come on!",
+        "Please!",
+        "Really?",
+        "The hell!",
+        "Let's go already!!!",
+        "Why not?",
+        "Come on, please?",
+      ];
+
+      const handleYesClick = () => {
+        question.innerHTML = "Yeahhhhhhhhhhh! See you tomorrow!!";
+        gif.src = "https://media.giphy.com/media/GeimqsH0TLDt4tScGw/giphy.gif";
+
+        // Remove the 'mouseover' event listener from noBtn
+        noBtn.removeEventListener("mouseover", handleNoMouseOver);
+
+        // Remove the noBtn from the DOM
+        noBtn.remove();
+
+        // Create and style a new button for Let's Go!
+        const letsGoBtn = document.createElement("button");
+        letsGoBtn.textContent = "Let's Go!";
+        letsGoBtn.classList.add("letsgo-btn"); 
+
+        if (window.innerWidth <= 800) {
+          letsGoBtn.style.left = "95%";
+        } else {
+          letsGoBtn.style.left = "63%";
+        }
+
+        letsGoBtn.style.transform = "translate(-50%, -50%)";
+        letsGoBtn.style.width = "200px"; 
+
+        // Add a click event listener to show the popup
+        letsGoBtn.addEventListener("click", () => {
+          const popupAlert = qs("#popupAlert");
+          popupAlert.style.display = "block"; 
+        });
+
+        // Replace yesBtn with the new letsGoBtn
+        yesBtn.replaceWith(letsGoBtn);
+      };
+
+      const handleNoMouseOver = () => {
+        const { width, height } = noBtn.getBoundingClientRect();
+        const maxX = window.innerWidth - width;
+        const maxY = window.innerHeight - height;
+
+        noBtn.style.left = `${Math.floor(Math.random() * maxX)}px`;
+        noBtn.style.top = `${Math.floor(Math.random() * maxY)}px`;
+
+        // Change the text of the button to a random message
+        const randomMessage = noButtonMessages[Math.floor(Math.random() * noButtonMessages.length)];
+        noBtn.textContent = randomMessage;
+      };
+
+      yesBtn.addEventListener("click", handleYesClick);
+      noBtn.addEventListener("mouseover", handleNoMouseOver);
+    </script>
+  </body>
+</html>
