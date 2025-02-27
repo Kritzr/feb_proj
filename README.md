@@ -28,7 +28,7 @@ If you click **No**, the button will run away from you (yes, it really will)! �
    
 2. Open the `index.html` in any web browser, and you’re good to go! 💻
 
-3. You can also check out the live demo I hosted on [this link](#). (Go ahead and click it. I dare you. 😏)
+3. You can also check out the live demo I hosted on [this link](https://kritzr.github.io/feb_proj/). (Go ahead and click it. I dare you. 😏)
 
 ---
 
